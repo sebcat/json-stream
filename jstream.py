@@ -13,14 +13,15 @@ def json_objects(readable):
     """
     dec = json.JSONDecoder()
     buf = readable.read(BUFSIZE)
-    while len(buf) > 0:
+    while True:
         buf = buf.lstrip(WHITESPACE)
-        has_obj = True
         try:
             obj, off = dec.raw_decode(buf)
-        except ValueError:
-            has_obj = False
-        if has_obj:
             yield obj
             buf = buf[off:]
-        buf += readable.read(BUFSIZE)
+        except ValueError:
+            chunk = readable.read(BUFSIZE)
+            if len(chunk) == 0:
+                break
+            else:
+                buf += chunk

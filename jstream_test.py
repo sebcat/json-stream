@@ -138,3 +138,11 @@ class JStreamTests(unittest.TestCase):
         got = [x for x in jstream.json_objects(data_stream)]
         self.assertTrue(expect == got, 
                 msg="\n  expected: {}\n  got: {}\n".format(expect,got))
+
+    def test_incomplete_sequence(self):
+        data = "[1,2,3" + large_json
+        expect = []
+        data_stream = io.StringIO(data)
+        got = [x for x in jstream.json_objects(data_stream)]
+        self.assertTrue(expect == got, 
+                msg="\n  expected: {}\n  got: {}\n".format(expect,got))
