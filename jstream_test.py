@@ -153,3 +153,6 @@ class JStreamTests(unittest.TestCase):
         got = [x for x in jstream.json_objects(data_stream)]
         self.assertTrue(expect == got,
                 msg="\n  expected: {}\n  got: {}\n".format(expect,got))
+
+if __name__ == '__main__':
+    unittest.main()
