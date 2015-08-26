@@ -146,3 +146,10 @@ class JStreamTests(unittest.TestCase):
         got = [x for x in jstream.json_objects(data_stream)]
         self.assertTrue(expect == got, 
                 msg="\n  expected: {}\n  got: {}\n".format(expect,got))
+
+    def test_empty_sequence(self):
+        data_stream = io.StringIO('')
+        expect = []
+        got = [x for x in jstream.json_objects(data_stream)]
+        self.assertTrue(expect == got,
+                msg="\n  expected: {}\n  got: {}\n".format(expect,got))
